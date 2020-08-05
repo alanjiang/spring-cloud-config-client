@@ -1,23 +1,39 @@
+server:
+  port: 9000
+
+ek:
+  eureka:
+    user: eureka
+    password: eureka
 spring:
    profiles:
      active: dev
+   kafka:
+    bootstrap-servers: 52.83.89.60:9093
    application:
      name: configclient
    cloud:
+     consul:
+        discovery:
+         enabled: true
+     bus:
+      refresh:
+        enabled: true
      config:
        uri: http://localhost:8888/ #config server uri
        profile: dev
        label: master
        discovery:
          enabled: true
-         serviceId: config-server
+         serviceId: configserver
 
-server:
-  port: 9000
+
 
 management:
+  server:
+    port: 8761
   security:
-     enabled: false
+     enabled: true
   endpoints: 
      web:
        exposure:
@@ -26,7 +42,7 @@ management:
 eureka:
  client:
     serviceUrl:
-       defaultZone: http://localhost:8761/eureka/
+       defaultZone: http://${ek.eureka.user}:${ek.eureka.password}@localhost:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true 
           
@@ -40,8 +56,8 @@ logging:
   level:
     com.netflix.discovery: 'DEBUG'
     
-#encrypt:
-#    key: mykey
+encrypt:
+    key: mykey
   
         
       

@@ -1,29 +1,23 @@
 package com.study.springcloud.config.client;
 
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 
-
-@Configuration
 @EnableDiscoveryClient
+@EnableEurekaClient     //表示我是一个服务
+@EnableFeignClients     //表示我可以调用其他服务，如果一个服务想要调用其他服务，则必须加上此注解
 @SpringBootApplication
 public class Application {
 	
-	
-	
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		
-		
 	}
 
 	@Bean
@@ -32,15 +26,9 @@ public class Application {
         c.setIgnoreUnresolvablePlaceholders(true);
         return c;
 	}
-	@Value("${test.password}")
-	private String pwd;
-	@Bean
-	public Config Config() {
-		
-		Config cf = new Config();
-		cf.setPwd(pwd);
-		return cf;
-	}
+	
+	
+	
 
 	
 	}

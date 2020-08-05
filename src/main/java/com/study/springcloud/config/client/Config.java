@@ -1,10 +1,10 @@
 package com.study.springcloud.config.client;
 
-import org.springframework.context.annotation.Configuration;
+import lombok.Data;
 
-
+@Data
 public class Config {
-   private String pwd;
+   private String pwd,url,port;
 
 public String getPwd() {
 	return pwd;
